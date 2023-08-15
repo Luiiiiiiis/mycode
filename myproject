@@ -1,0 +1,42 @@
+import requests
+import datetime
+
+def get_weather(api_key, city):
+    base_url = f'http://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric'
+    response = requests.get(base_url)
+    data = response.json()
+    return data
+
+def get_air_quality():
+    # Replace this with a real API call to get air quality data
+    # For example, you could use the AirNow API or a similar service
+    # In this example, we'll simulate air quality levels
+    return {
+        'pm25': 18,  # Example PM2.5 level
+    }
+
+def is_safe_to_walk(weather_data, air_quality_data):
+    temperature = weather_data['main']['temp']
+    pm25_level = air_quality_data['pm25']
+    
+    # Check weather conditions and air quality
+    if temperature >= 10 and temperature <= 30 and pm25_level <= 25:
+        return True
+    else:
+        return False
+
+def main():
+    api_key = 2bf5f85b813a47c9e054a6653284216b
+    city = 'Washington,US'
+    
+    weather_data = get_weather(api_key, city)
+    air_qualitydata = get_air_quality()
+    
+    if is_safe_to_walk(weather_data, air_quality_data):
+        print("It's safe to walk your dog outside!")
+    else:
+        print("It might not be safe to walk your dog outside.")
+
+if __name__ == '__main__':
+    main()
+

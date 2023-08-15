@@ -1,0 +1,28 @@
+import requests
+
+def get_weather(api_key, city):
+    base_url = f'http://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric'
+    response = requests.get(base_url)
+    data = response.json()
+    return data
+
+def is_safe_to_walk(temperature):
+    if 10 <= temperature <= 30:
+        return True
+    return False
+
+def main():
+    api_key = b0a82a4e7f534c26d39161da1601dc2f
+    city = 'Washington,US'
+
+    weather_data = get_weather(api_key, city)
+    temperature = weather_data['main']['temp']
+
+    if is_safe_to_walk(temperature):
+        print("It's safe to walk your dog outside!")
+    else:
+        print("It might not be safe to walk your dog outside.")
+
+if __name__ == '__main__':
+    main()
+
